@@ -33,14 +33,15 @@ async function initRedis() {
     const parsedMessaged = JSON.parse(message)
     const roomId = channel.split(':')[1]
 
-    io.to(roomId).emit("recieved message: ", parsedMessaged)
+    console.log("parsedMessaged:",parsedMessaged)
+    io.to(roomId).emit("receive_message", parsedMessaged)
   })
 }
 
 initRedis().catch(console.error)
 
 io.on('connection', (socket) => {
-  console.log(`User connected: ${socket}`)
+  console.log(`User connected: ${socket.id}`)
 
   socket.on('join_room', (roomId) => {
     socket.join(roomId)
@@ -55,7 +56,7 @@ io.on('connection', (socket) => {
       timestamp: new Date().toISOString()
     }
     await pubClient.publish(`room:${room}`, JSON.stringify(payload))
-    io.to(room).emit("receive_message", payload)
+    // io.to(room).emit("receive_message", payload)
   })
 
   // socket.on("receive_message")

@@ -182,7 +182,7 @@
 
         // Listen for incoming messages from the backend
         socket.on("receive_message", (data) => {
-            console.log("currentUsername inside os recieve message:", currentUsername)
+            console.log("data inside of recieve message:", data)
             const messagesDiv = document.getElementById("messages");
             const msgElement = document.createElement("div");
 
