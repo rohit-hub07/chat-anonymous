@@ -6,6 +6,9 @@ import { channel } from 'diagnostics_channel'
 import dotenv from "dotenv"
 dotenv.config()
 import { fileURLToPath } from 'url'
+import path from "path";
+
+
 const app = express()
 
 const __filename = fileURLToPath(import.meta.url);
