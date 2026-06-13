@@ -12,7 +12,7 @@ import path from "path";
 const app = express()
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename); 
+const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -33,7 +33,7 @@ async function initRedis() {
     const parsedMessaged = JSON.parse(message)
     const roomId = channel.split(':')[1]
 
-    console.log("parsedMessaged:",parsedMessaged)
+    console.log("parsedMessaged:", parsedMessaged)
     io.to(roomId).emit("receive_message", parsedMessaged)
   })
 }
@@ -63,6 +63,10 @@ io.on('connection', (socket) => {
 
   socket.on('disconnet', () => {
     console.log(`User disconnected: ${socket.id}`)
+    if (reason === "io server disconnect") {
+      // The server kicked us off, so let's reconnect fresh
+      socket.connect();
+    }
   })
 
 })
