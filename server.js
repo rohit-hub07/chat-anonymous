@@ -5,8 +5,13 @@ import { createClient } from 'redis'
 import { channel } from 'diagnostics_channel'
 import dotenv from "dotenv"
 dotenv.config()
+import { fileURLToPath } from 'url'
 const app = express()
-app.use(express.static("public"))
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "public")));
 
 const server = http.createServer(app)
 const io = new Server(server, {
@@ -46,18 +51,18 @@ io.on('connection', (socket) => {
       message,
       timestamp: new Date().toISOString()
     }
-    await pubClient.publish(`room:${room}`,JSON.stringify(payload))
-    io.to(room).emit("receive_message",payload)
+    await pubClient.publish(`room:${room}`, JSON.stringify(payload))
+    io.to(room).emit("receive_message", payload)
   })
 
   // socket.on("receive_message")
 
-  socket.on('disconnet',() =>{
+  socket.on('disconnet', () => {
     console.log(`User disconnected: ${socket.id}`)
   })
 
 })
 
-server.listen(3000, () =>{
+server.listen(3000, () => {
   console.log("Listening")
 })
