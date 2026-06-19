@@ -104,6 +104,12 @@
         #text {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
+        #instruction{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:rgb(4, 4, 74);
+            font-weight: bold;
+            
+        }
     </style>
 </head>
 
@@ -127,10 +133,16 @@
                 <input type="text" id="messageInput" placeholder="Type a message..." style="flex-grow: 1;">
                 <button onclick="sendMessage()">Send</button>
             </div>
-
         </div>
         <!-- <a id="anchor" target="_blank" rel="noopener noreferrer" href="https://github.com/rohit-hub07/chat-anonymous">Want to contribute?</a> -->
         <p id="text">❤️‍🔥Made by The Bay Harbor Butcher</p>
+        <div id="instruction">
+            <h3>Instructions:</h3>
+            <p>1. Enter any username you like.</p>
+            <p>2. Create a room name of your choice or enter the room name you want to join.</p>
+            <p>3. Share the room name with whom you want to chat.</p>
+            <p>Note: Unlimited number of users can join the same lobby. </p>
+        </div>
     </div>
 
     <script>
@@ -160,6 +172,7 @@
             document.getElementById("roomTitle").innerText = `Room: ${room}`;
             document.getElementById("loginArea").style.display = "none";
             document.getElementById("chatArea").style.display = "block";
+            document.getElementById("instruction").style.display = "none";
         }
 
         // Send a message to the backend
